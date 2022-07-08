@@ -1,6 +1,6 @@
 //
 //  MVVM_TutorialApp.swift
-//  Shared
+//  MVVM-Tutorial
 //
 //  Created by EJ Prokopik on 7/7/22.
 //
