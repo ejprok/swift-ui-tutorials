@@ -9,6 +9,5 @@ import Foundation
 
 struct ShoppingItem: Identifiable {
     let name: String
-    let price: Int
     let id: UUID = UUID()
 }

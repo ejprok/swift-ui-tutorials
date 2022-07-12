@@ -9,22 +9,27 @@ import SwiftUI
 
 struct ShoppingListView: View {
     @State private var shoppingItems = [ShoppingItem]()
-    @State private var showingAlert = false
     @State private var name: String = ""
     
     var body: some View {
         VStack {
+            
             if shoppingItems.isEmpty {
+                
                 Text("Add some items to shop for")
                     .foregroundColor(.gray)
+                
             } else {
+                
                 ScrollView {
+                    
                     ForEach(shoppingItems) { item in
+                        
                         HStack {
                             
-                            Text(item.name)
+                            Text(item.name.trimmingCharacters(in: .whitespacesAndNewlines))
                             Spacer()
-                            Text("$\(item.price)")
+                            
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -32,16 +37,32 @@ struct ShoppingListView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding(.horizontal, 8)
                     }
+                    
                 }
+                
             }
             
             Spacer()
-            TextField("Name", text: $name)
             
-            Button("Add Item") {
-                shoppingItems.append(ShoppingItem(name: name, price: 12))
-            }
-            .frame(maxWidth: .infinity)
+            TextField("Item Name", text: $name)
+                .submitLabel(.done)
+                .onSubmit {
+                    
+                    withAnimation {
+                        
+                        shoppingItems.append(ShoppingItem(name: name))
+                        name = ""
+                        
+                    }
+                    
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke()
+                )
+                .padding(.horizontal, 8)
+            
         }
         .navigationTitle("Shopping List")
     }
